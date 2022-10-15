@@ -4,6 +4,7 @@
 package com.eazybytes.accounts.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,7 +110,8 @@ public class AccountsController {
 	@GetMapping("/sayHello")
 	@RateLimiter(name = "sayHello", fallbackMethod = "sayHelloFallback")
 	public String sayHello() {
-		return "Hello, Welcome to EazyBank Kubernetes cluster";
+		Optional<String> podName = Optional.ofNullable(System.getenv("HOSTNAME"));
+		return "Hello, Welcome to EazyBank Kubernetes cluster from : "+(podName.isPresent()?podName.get():"");
 	}
 
 	private String sayHelloFallback(Throwable t) {

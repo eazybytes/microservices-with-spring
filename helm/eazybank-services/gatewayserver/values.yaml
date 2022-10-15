@@ -1,0 +1,25 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: gatewayserver-deployment
+deploymentLabel: gatewayserver
+
+replicaCount: 1
+
+image:
+  repository: eazybytes/gatewayserver
+  tag: latest
+
+containerPort: 8072
+
+service:
+  type: LoadBalancer
+  port: 8072
+  targetPort: 8072
+
+config_enabled: true
+zipkin_enabled: true
+profile_enabled: true
+eureka_enabled: true
+keycloak_enabled: true
+resouceserver_enabled: false

@@ -1,0 +1,25 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: cards-deployment
+deploymentLabel: cards
+
+replicaCount: 1
+
+image:
+  repository: eazybytes/cards
+  tag: latest
+
+containerPort: 9000
+
+service:
+  type: ClusterIP
+  port: 9000
+  targetPort: 9000
+
+config_enabled: true
+zipkin_enabled: true
+profile_enabled: true
+eureka_enabled: true
+keycloak_enabled: false
+resouceserver_enabled: false

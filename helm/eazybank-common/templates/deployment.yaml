@@ -1,0 +1,95 @@
+{{- define "common.deployment" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploymentName }}
+  labels:
+    app: {{ .Values.deploymentLabel }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deploymentLabel }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deploymentLabel }}
+    spec:
+      containers:
+      - name: {{ .Values.deploymentLabel }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.containerPort }}
+          protocol: TCP
+        env:
+        {{- if .Values.profile_enabled }}
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: SPRING_PROFILES_ACTIVE
+        {{- end }}
+        {{- if .Values.zipkin_enabled }}
+        - name: SPRING_ZIPKIN_BASEURL
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: SPRING_ZIPKIN_BASEURL
+        {{- end }}
+        {{- if .Values.config_enabled }}
+        - name: SPRING_CONFIG_IMPORT
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: SPRING_CONFIG_IMPORT
+        {{- end }}
+        {{- if .Values.eureka_enabled }}
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        {{- end }}
+        {{- if .Values.resouceserver_enabled }}
+        - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI
+        {{- end }}
+        {{- if .Values.keycloak_enabled }}
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_TOKEN-URI
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_TOKEN-URI
+        {{- end }}
+        {{- if .Values.keycloak_enabled }}
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_AUTHORIZATION-URI
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_AUTHORIZATION-URI
+        {{- end }}
+        {{- if .Values.keycloak_enabled }}
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_USERINFO-URI
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.global.configMapName }}
+              key: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_USERINFO-URI
+        {{- end }}
+        {{- if .Values.keycloak_enabled }}
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_EAZYBANK-GATEWAY_CLIENT-ID
+          valueFrom: 
+            secretKeyRef:
+              name: {{ .Values.global.secretName }}
+              key: keycloakclientid
+        {{- end }}
+        {{- if .Values.keycloak_enabled }}
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_EAZYBANK-GATEWAY_CLIENT-SECRET
+          valueFrom: 
+            secretKeyRef:
+              name: {{ .Values.global.secretName }}
+              key: keycloakclientsecret
+        {{- end }}
+{{- end -}}

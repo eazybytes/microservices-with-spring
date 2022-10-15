@@ -1,0 +1,24 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+deploymentName: eurekaserver-deployment
+deploymentLabel: eurekaserver
+
+replicaCount: 1
+
+image:
+  repository: eazybytes/eurekaserver
+  tag: latest
+
+containerPort: 8070
+
+service:
+  type: ClusterIP
+  port: 8070
+  targetPort: 8070
+
+config_enabled: true
+zipkin_enabled: true
+profile_enabled: true
+eureka_enabled: false
+keycloak_enabled: false
+resouceserver_enabled: false

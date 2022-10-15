@@ -1,0 +1,15 @@
+{{- define "common.configmap" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.global.configMapName }}
+data:
+  SPRING_ZIPKIN_BASEURL: {{ .Values.global.zipkinBaseURL }}
+  SPRING_PROFILES_ACTIVE: {{ .Values.global.activeProfile }}
+  SPRING_CONFIG_IMPORT: {{ .Values.global.configServerURL }}
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: {{ .Values.global.eurekaServerURL }}
+  SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: {{ .Values.global.keyCloakURL }}
+  SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_TOKEN-URI: {{ .Values.global.tokenuri }}
+  SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_AUTHORIZATION-URI: {{ .Values.global.authorizationuri }}
+  SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_USERINFO-URI: {{ .Values.global.userinfouri }}
+{{- end -}}

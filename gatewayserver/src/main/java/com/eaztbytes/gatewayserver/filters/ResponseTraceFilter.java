@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 
-import brave.Tracer;
 import reactor.core.publisher.Mono;
 
 @Configuration
@@ -19,9 +18,6 @@ public class ResponseTraceFilter {
 	@Autowired
 	FilterUtility filterUtility;
 	
-	@Autowired
-	Tracer tracer;
-
 	@Bean
 	public GlobalFilter postGlobalFilter() {
 		return (exchange, chain) -> {
