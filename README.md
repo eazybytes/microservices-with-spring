@@ -18,6 +18,12 @@ Learn how to create enterprise and production ready Microservices with Spring, S
 * Section 11 - Distributed tracing & Log aggregation (Challenge 7)
 * Section 12 - Monitoring Microservices Metrics & Health (Challenge 8)
 * Section 13 - Automatic self-heal, autoscale, deployments (Challenge 9)
+* Section 14 - Deploying all microservices into K8s cluster
+* Section 15 - Deep Dive on Helm
+* Section 16 - Securing Microservices using K8s Service
+* Section 17 - Securing Microservices using OAuth2 client credentials grant flow
+* Section 18 - Securing Microservices using OAuth2 Authorization code grant flow
+* Section 19 - Introduction to K8s Ingress & Service Mesh (Istio)
 
 ## Pre-requisite for the course
 - Good understanding on Java and Spring concepts
@@ -43,6 +49,9 @@ Learn how to create enterprise and production ready Microservices with Spring, S
 - Kubernetes - https://kubernetes.io/
 - GCP - https://console.cloud.google.com/
 - GConsole -  https://cloud.google.com/sdk
+- Helm -  https://helm.sh/
+- Keycloak  -  https://www.keycloak.org/
+- Istio -  https://istio.io/
 
 ## Maven Commands used in the course
 
@@ -108,4 +117,16 @@ Learn how to create enterprise and production ready Microservices with Spring, S
 | "kubectl autoscale deployment accounts-deployment --min=3 --max=10 --cpu-percent=70" | To create automatic scaling using HPA for a deployment inside your cluster |
 | "kubectl logs node-id" | To get a logs of a given node inside your cluster |
 
+## Helm Commands used in the course
 
+|     Helm Command       |     Description          |
+| ------------- | ------------- |
+| "helm create [NAME]" | Create a default chart with the given name |
+| "helm dependencies build" | To recompile the given helm chart |
+| "helm install [NAME] [CHART]" | Install the given helm chart into K8s cluster |
+| "helm upgrade [NAME] [CHART]" | Upgrades a specified release to a new version of a chart |
+| "helm history [NAME]" | Display historical revisions for a given release |
+| "helm rollback [NAME] [REVISION]" | Roll back a release to a previous revision |
+| "helm uninstall [NAME]" | Uninstall all of the resources associated with a given release |
+| "helm template [NAME] [CHART]" | Render chart templates locally along with the values |
+| "helm list" | Lists all of the helm releases inside a K8s cluster |
